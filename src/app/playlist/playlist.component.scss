@@ -1,0 +1,151 @@
+.box{
+    //border: 1px solid blue;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.highlight{
+    //border: 1px solid yellow;
+}
+
+.md-form input{
+    color: #e53935;
+}
+
+.md-form i {
+    color: #e53935;
+}
+
+.panel{
+    margin-top: 5%;
+    margin-bottom: 4%;
+}
+
+.panel .label{
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+}
+
+.label .index-label{
+    align-self: center;
+    flex-basis: 6%;
+}
+
+.label .thumbnail-label{
+    flex-basis: 20%;
+}
+
+.label .title-label{
+    flex-basis: 65%;
+    padding-left: 2%;
+}
+
+.label .quality-label{
+    flex-grow: 1;
+    align-self: flex-start;
+}
+
+.download-button {
+    width: 100%;
+    background-color: #e53935 !important;
+}
+
+.download-button:hover, .download-button:target, .download-button:active{
+    color: #fff;
+    background-color: #ef5350 !important;
+    border-color: #ef5350 !important; /*set the color you want here*/
+    transition: cubic-bezier(0.075, 0.82, 0.165, 1) !important;
+    border: 0px solid transparent !important;
+}
+
+.download-panel{
+    display: flex;
+    flex-direction: row;
+    padding-left: 0;
+    padding-right: 0;
+    margin-top: 2%;
+}
+
+.download-panel .index{
+    align-self: center;
+    flex-basis: 6%;
+}
+
+.download-panel .thumbnail{
+    flex-basis: 20%;
+}
+
+.download-panel .title{
+    flex-basis: 65%;
+    padding-left: 2%;
+}
+
+.download-panel .quality{
+    flex-grow: 1;
+    align-self: flex-start;
+    text-align: center;
+}
+
+.quality .download-btn{
+    float: right;
+    //margin-bottom: 2%;
+    min-width: 150px;
+    max-height: 40px;
+}
+
+@media only screen and (max-width: 1150px) {
+    .download-button{
+        text-align: center;
+    }
+
+    .download-button i{
+        display: none;
+    }
+}
+
+@media only screen and (max-width: 789px) {
+    .download-button{
+        margin-top: 10%;
+    }
+    .download-button span{
+        display: none;
+    }
+    
+    .download-button i{
+        display: inline;
+    }
+}
+
+@media only screen and (max-width: 992px) {
+    .download-panel .title{
+        flex-basis: 55%;
+        padding-left: 2%;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .download-panel .thumbnail{
+        flex-basis: 15%;
+    }
+
+    .download-panel .quality .download-btn{
+        //padding-bottom: -3%;
+        display: inline-block;
+        vertical-align: middle;
+        min-width: 100px;
+    }
+
+
+
+    .download-panel .thumbnail img{
+        width: 50px;
+        height: 50px;
+    }
+
+    .download-panel .title{
+        flex-basis: 55%;
+        padding-left: 2%;
+    }
+}

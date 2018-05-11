@@ -1,0 +1,47 @@
+<div class="box jua">
+  <div class="row">
+    <div class="col-9">
+      <div class="md-form">
+        <i class="fa fa-globe prefix"></i>
+        <input #input type="text" id="inputIconEx1" class="form-control" placeholder="Enter YouTube Playlist Link" (keyup.enter)="download(input)">
+      </div>
+    </div>
+    <div class="col-3 download">
+      <button type="button" class="btn red darken-1 waves-light download-button" (click)="download(input)" mdbWavesEffect>
+        <i class="fa fa-download" aria-hidden="true"></i>
+        <span class="btn-title">Download</span>
+      </button>
+    </div>
+  </div>
+  <div class="panel ">
+    <div class="label" *ngIf="playlist?.videos.length > 0">
+      <div class="index-label">Index</div>
+      <div class="thumbnail-label">Thumbnail</div>
+      <div class="title-label">Title</div>
+      <div class="quality-label">Quality</div>
+    </div>
+    <div *ngFor="let video of playlist?.videos; let i=index">
+      <div class="download-panel">
+        <div class="index">
+          #{{i+1}}
+        </div>
+        <div class="thumnail highlight">
+          <a target="_blank" href="https://materialtube.firebaseapp.com/watch?v={{video?.id}}">
+            <img src="{{video?.thumbnail}}" alt="" width="100%" height="auto">
+          </a>
+        </div>
+        <div class="title highlight">
+          <a target="_blank" href="https://materialtube.firebaseapp.com/watch?v={{video?.id}}">
+            <span>{{video?.title}}</span>
+          </a>
+        </div>
+        <div class="quality highlight">
+          <a href="{{video?.besturl}}" class="btn btn-success download-btn" [class.disabled]="!video?.on">
+            <span class="heading">{{video?.bestext}} {{video?.bestheight}}</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <loading2 *ngIf="loading"></loading2>
+</div>

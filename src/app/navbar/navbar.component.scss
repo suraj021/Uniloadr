@@ -1,0 +1,21 @@
+.brand-name{
+    font-size: 185%;
+}
+
+a img{
+    max-width: 100%;
+    height: auto;
+}
+links ul li a:active{
+    color: white !important;
+    background-color: #e53935 !important;
+}
+
+links ul li a:hover{
+    //border: 1px solid black;
+    background-color: #ef5350 !important;
+}
+
+links ul li div a:active{
+    background-color: #ef5350;
+}

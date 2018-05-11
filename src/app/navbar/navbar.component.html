@@ -1,0 +1,33 @@
+<mdb-navbar SideClass="navbar navbar-expand-lg navbar-dark red darken-1 jua">
+  <logo>
+    <a class="navbar-brand" href="">
+      <strong>
+        <span class="brand-name">Uniloadr</span>
+      </strong>
+    </a>
+  </logo>
+  <links class="menus">
+    <ul class="navbar-nav">
+      <li class="nav-item" [class.active]="id==1" (click)="clicked(1)">
+        <a routerLink="" class="nav-link waves-light" mdbRippleRadius>YouTube Link</a>
+      </li>
+      <li class="nav-item" [class.active]="id==2" (click)="clicked(2)">
+        <a routerLink="/playlist" class="nav-link waves-light" mdbRippleRadius>Playlist</a>
+      </li>
+      <li class="nav-item" [class.active]="id==3" (click)="clicked(3)">
+        <a routerLink="/channel" class="nav-link waves-light" mdbRippleRadius>Channel</a>
+      </li>
+      <li class="nav-item dropdown btn-group" dropdown>
+        <a dropdownToggle type="button" class="nav-link dropdown-toggle waves-light" mdbRippleRadius>
+          Help
+          <span class="caret"></span>
+        </a>
+        <div class="dropdown-menu dropdown dropdown-primary btn-group" role="menu">
+          <a routerLink="/tutorial" class="dropdown-item waves-light" mdbRippleRadius [class.active]="id==4" (click)="clicked(4)">Tutorial</a>
+          <a routerLink="/terms-of-use" class="dropdown-item waves-light" mdbRippleRadius [class.active]="id==5" (click)="clicked(5)">Terms of Use</a>
+          <a routerLink="/contact-us" class="dropdown-item waves-light" mdbRippleRadius [class.active]="id==6" (click)="clicked(6)">Contact Us</a>
+        </div>
+      </li>
+    </ul>
+  </links>
+</mdb-navbar>
