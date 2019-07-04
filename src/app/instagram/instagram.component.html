@@ -1,0 +1,38 @@
+<div class="box jua">
+  <div class="row">
+    <div class="col-9 input-box highlight">
+      <div class="md-form">
+        <i class="fa fa-globe prefix"></i>
+        <input #input type="text" id="inputIconEx1" class="form-control" placeholder="Enter Instagram video Link" (keyup.enter)="download(input)">
+      </div>
+    </div>
+    <div class="col-3 download highlight">
+      <button type="button" class="btn red darken-1 waves-light download-button" (click)="download(input)" mdbWavesEffect>
+        <div class="heading">
+          <i class="fa fa-download" aria-hidden="true"></i>
+          <span class="btn-title">Download</span>
+        </div>
+      </button>
+    </div>
+  </div>
+  <div class="card alert animated shake" *ngIf="urlError">
+    <div class="card-body">
+      The URL of the video seems to be invalid. Please enter a valid URL or try again later.
+    </div>
+  </div>
+  <loading *ngIf="!urlError && loading"></loading>
+  <div class="panel highlight">
+    <div class="download-panel highlight" *ngIf="ready">
+      <div class="card mp4">
+        <div class="card-header deep-grey">
+          Video Quality
+        </div>
+        <div class="card-body">
+          <div *ngFor="let key of getAllKeys()">
+            <a target="_blank" download href='{{insta.quality[key][0].url}}' class="btn btn-success">{{key}} {{insta.quality[key][0].ext}}</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -17,6 +17,13 @@ import { LoadingComponent } from './loading/loading.component';
 import { TutorialComponent } from './tutorial/tutorial.component';
 import { TermsOfUseComponent } from './terms-of-use/terms-of-use.component';
 import { Loading2Component } from './loading2/loading2.component';
+import { ValidatorService } from './services/validator.service';
+import { SupportedSitesComponent } from './supported-sites/supported-sites.component';
+import { FacebookComponent } from './facebook/facebook.component';
+import { VimeoComponent } from './vimeo/vimeo.component';
+import { DailyMotionComponent } from './daily-motion/daily-motion.component';
+import { InstagramComponent } from './instagram/instagram.component';
+import { SoundcloudComponent } from './soundcloud/soundcloud.component';
 
 const routes: Routes= [
   { path: "", component: SingleComponent },
@@ -25,7 +32,11 @@ const routes: Routes= [
   { path: "channel", component: ChannelComponent },
   { path: "contact-us", component: ContactUsComponent },
   { path: "tutorial", component: TutorialComponent },
-  { path: "terms-of-use", component: TermsOfUseComponent }
+  { path: "terms-of-use", component: TermsOfUseComponent },
+  { path: "facebook", component: FacebookComponent },
+  { path: "vimeo", component: VimeoComponent },
+  { path: "daily-motion", component: DailyMotionComponent },
+  { path: "instagram", component: InstagramComponent }
 ];
 
 @NgModule({
@@ -40,7 +51,13 @@ const routes: Routes= [
     LoadingComponent,
     TutorialComponent,
     TermsOfUseComponent,
-    Loading2Component
+    Loading2Component,
+    SupportedSitesComponent,
+    FacebookComponent,
+    VimeoComponent,
+    DailyMotionComponent,
+    InstagramComponent,
+    SoundcloudComponent,
   ],
   imports: [
     BrowserModule,
@@ -51,7 +68,8 @@ const routes: Routes= [
   ],
   schemas: [ NO_ERRORS_SCHEMA ],
   providers: [
-    FetcherService
+    FetcherService,
+    ValidatorService
   ],
   bootstrap: [AppComponent]
 })

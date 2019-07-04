@@ -1,0 +1,267 @@
+.box{
+    //border: 1px solid blue;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.highlight{
+    //border: 1px solid yellow;
+}
+
+.md-form input{
+    color: #e53935;
+}
+
+.md-form i {
+    color: #e53935;
+}
+
+.panel{
+    margin-top: 3%;
+    margin-bottom: 4%;
+}
+
+.panel .label{
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+}
+
+.label .index-label{
+    align-self: center;
+    flex-basis: 5%;
+}
+
+.label .index-label .small-index{
+    display: none;
+}
+
+.label .thumbnail-label{
+    flex-basis: 20%;
+}
+
+.label .title-label{
+    flex-basis: 65%;
+    padding-left: 2%;
+}
+
+.label .quality-label{
+    flex-grow: 1;
+    align-self: flex-start;
+}
+
+.download-button {
+    width: 100%;
+    background-color: #e53935 !important;
+    margin-top: 6%;
+    //padding-right: 1%;
+    text-align: center;
+    margin-left: -5%;
+}
+
+.download-button:hover, .download-button:target, .download-button:active{
+    color: #fff;
+    background-color: #ef5350 !important;
+    border-color: #ef5350 !important; /*set the color you want here*/
+    transition: cubic-bezier(0.075, 0.82, 0.165, 1) !important;
+    border: 0px solid transparent !important;
+}
+
+.alert{
+    background-color: #ffbb33;
+    margin-top: 2%;
+    color: white;
+}
+
+.download-panel{
+    display: flex;
+    flex-direction: row;
+    padding-left: 0;
+    padding-right: 0;
+    margin-top: 2%;
+}
+
+.download-panel .index{
+    align-self: center;
+    flex-basis: 5%;
+}
+
+.download-panel .thumbnail{
+    flex-basis: 20%;
+}
+
+.download-panel .title{
+    flex-basis: 65%;
+    padding-left: 2%;
+}
+
+.download-panel .quality{
+    flex-grow: 1;
+    align-self: flex-start;
+    text-align: center;
+}
+
+.quality .download-btn{
+    float: right;
+    //margin-bottom: 2%;
+    min-width: 100px;
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    //max-height: 25px;
+}
+
+.helper{
+    margin-top: 3%;
+    color: grey !important;
+}
+
+.box .helper .card{
+    //margin-top: 3%;
+    padding-top: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.links-area textarea{
+    width: 100%;
+    border-radius: 5px;
+}
+
+@media only screen and (max-width: 1150px) {
+    .download-button{
+        text-align: center;
+    }
+
+    .download-button i{
+        display: none;
+    }
+}
+
+
+
+@media only screen and (max-width: 789px) {
+    .download-button{
+        margin-top: 11%;
+    }
+    .download-button .heading span{
+        display: none;
+    }
+    
+    .download-button .heading i{
+        display: inline;
+    }
+
+    .download-panel .index{
+        font-size: 12px;
+    }
+}
+
+@media only screen and ( max-width: 789px ){
+    .label .index-label .small-index{
+        display: inline;
+    }
+    .index-label .large-index{
+        display: none;
+    }
+}
+
+@media only screen and (max-width: 992px) {
+    .download-panel .title{
+        flex-basis: 55%;
+        padding-left: 2%;
+    }
+}
+
+@media only screen and (min-width: 992px) {
+    .progress{
+        margin-bottom: -2%;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .download-panel .thumbnail{
+        flex-basis: 15%;
+    }
+
+    .download-panel .quality .download-btn{
+        //padding-bottom: -3%;
+        display: inline-block;
+        vertical-align: middle;
+        min-width: 100px;
+    }
+
+    .download-panel .thumbnail img{
+        width: 50px;
+        height: 50px;
+    }
+
+    .download-panel .title{
+        flex-basis: 55%;
+        padding-left: 2%;
+    }
+
+    .identity .identity-card .content div{
+        padding-left: 15%;
+    }    
+
+}
+
+@media only screen and (max-width: 465px) {
+    .label .index-label .small-index{
+        display: inline-block;
+    }
+
+    .label .index-label .large-index{
+        display: none;
+    }
+
+    .download-panel .index{
+        font-size: 10px;
+    }
+    .download{
+        padding-left: 0;
+    }
+    .download .download-button{
+        margin-top: 17%;
+        padding-left: 28px;
+    }
+    .download-button .heading{
+        margin-left: 5%;
+    }
+    .input-box .md-form{
+        padding-right: 0;
+    }
+    .download-panel .title a span{
+        font-size: 15px;
+    }
+
+    .content div{
+        padding-left: 25%;
+    }
+}
+
+.identity{
+    margin-top: 5%;
+}
+
+.identity .identity-card{
+    display: flex;
+    flex-direction: row;
+}
+
+.identity .identity-card .thumbnail{
+    flex-basis: 30%;
+    max-width: 100px;
+}
+
+.identity .identity-card .content{
+    flex: 1;
+}
+
+.content div{
+    padding-left: 5%;
+}

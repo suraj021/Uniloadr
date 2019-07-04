@@ -1,0 +1,74 @@
+<div class="box jua">
+    <div class="row">
+        <div class="col-9 input-box highlight">
+            <div class="md-form">
+                <i class="fa fa-globe prefix"></i>
+                <input #input type="text" id="inputIconEx1" class="form-control" placeholder="Enter Facebook Link" (keyup.enter)="download(input)">
+            </div>
+        </div>
+        <div class="col-3 download highlight">
+            <button type="button" class="btn red darken-1 waves-light download-button" (click)="download(input)" mdbWavesEffect>
+                <div class="heading">
+                    <i class="fa fa-download" aria-hidden="true"></i>
+                    <span class="btn-title">Download</span>
+                </div>
+            </button>
+        </div>
+    </div>
+    <div class="card alert animated shake" *ngIf="urlError">
+        <div class="card-body">
+            The URL of the video seems to be invalid. Please enter a valid URL or try again later.
+        </div>
+    </div>
+    <loading *ngIf="loading && !urlError && !ready"></loading>
+    <div class="panel highlight" *ngIf="ready">
+        <div class="thumbnail highlight">
+            <div class="card z-depth-1">
+                <div class="card-body">
+                    <a target="_blank" href="{{fvideo?.webpage_url}}">
+                        <img src="{{fvideo?.thumbnail}}" alt="" width="100%" height="auto">
+                    </a>
+                </div>
+            </div>
+            <br>
+            <div class="title">
+                <a target="_blank" href="{{fvideo?.webpage_url}}">
+                    <span style="color: #495057">{{ fvideo?.title}}</span>
+                </a>
+                <br/>
+            </div>
+        </div>
+        <div class="download-panel highlight">
+            <div class="card mp4">
+                <div class="card-header deep-grey">
+                    Video Quality:
+                </div>
+                <div class="card-body">
+                    <div *ngFor="let key of getBothKeys()">
+                        <a target="_blank" download href='{{fvideo?.both[key][0].url}}' class="btn btn-success">{{key}}</a>
+                    </div>
+                </div>
+            </div>
+            <div class="card mp4">
+                <div class="card-header deep-grey">
+                    No Audio:
+                </div>
+                <div class="card-body">
+                    <div *ngFor="let key of getNoAudioKeys()">
+                        <a target="_blank" download href='{{fvideo?.noaudio[key][0].url}}' class="btn btn-success">{{fvideo?.noaudio[key][0].width}} x {{fvideo?.noaudio[key][0].height}} {{fvideo?.noaudio[key][0].ext}}</a>
+                    </div>
+                </div>
+            </div>
+            <div class="card mp4">
+                <div class="card-header deep-grey">
+                    No Video:
+                </div>
+                <div class="card-body">
+                    <div *ngFor="let vid of fvideo?.novideo">
+                        <a target="_blank" download href='{{vid.url}}' class="btn btn-success">{{vid.ext}}</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

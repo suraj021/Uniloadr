@@ -7,7 +7,10 @@ import 'rxjs/add/operator/concatMap';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/observable/from';
 import 'rxjs/add/operator/catch';
+import 'rxjs/add/observable/throw';
 import { AppError } from '../errors/app-error';
+import { Title } from '@angular/platform-browser';
+import { ValidatorService } from '../services/validator.service';
 
 @Component({
   selector: 'app-playlist',
@@ -16,27 +19,61 @@ import { AppError } from '../errors/app-error';
 })
 export class PlaylistComponent implements OnInit {
 
+  id: string;
+  urlError: boolean;
   playlist: Playlist;
   loading: boolean;
+  links: string;
+  progress: number;
+  count: number;
+
   private API_KEY = "AIzaSyDHwyYH0nFYdQEPMi5a5C5WCIspc6ttmGA";
 
-  constructor(private _fetcher: FetcherService) { }
+  constructor(private _fetcher: FetcherService, private validator: ValidatorService) { }
 
   ngOnInit() {
+    this.progress = this.count = 0;
     this.loading = false;
   }
 
-  download( input ) {
-    let id= input.value;
+  download(input) {
+    this.urlError = false;
+    let playlistUrl = input.value;
+    let match = this.validator.validatePlaylistUrl(playlistUrl);
+
+    if (this.playlist != null && this.id === match && this.id === this.playlist.id)
+      return;
+
+    this.links = '';
+    this.count = 0;
+    this.progress = 0;
+
+    if (match) {
+      this.id = match;
+      this.urlError = false;
+    } else {
+      this.id = '';
+      this.urlError = true;
+      this.playlist = null;
+      this.links = '';
+      return;
+    }
+
     this.playlist = new Playlist();
+    this.loading = true;
+    //this.links = 'Links will be available after some moments...';
     //PLUg5WJL2pGHcM9ZReMONn_XVIpDXZb0vU 5000
     // PLAwxTw4SYaPn_OWPFT9ulXLuQrImzHfOV 53
     this.loading = true;
-    let url = "https://www.googleapis.com/youtube/v3/playlists?part=snippet,contentDetails&id="+ id +"&key=" + this.API_KEY;
+    let url = "https://www.googleapis.com/youtube/v3/playlists?part=snippet&id=" + this.id + "&key=" + this.API_KEY;
     this._fetcher.get(url)
       .subscribe(
         response => {
-          if (response.items.length === 0) {
+          if (response.items.length === 0 || response.pageInfo.totalResults === 0) {
+            this.urlError = true;
+            this.id = '';
+            this.playlist = null;
+            this.links = '';
             return;
           }
 
@@ -44,12 +81,10 @@ export class PlaylistComponent implements OnInit {
 
           this.playlist.id = response.id;
           this.playlist.title = response.snippet.title;
-          this.playlist.thumbnail = response.snippet.thumbnails.medium.url;
-          this.playlist.itemCount = response.contentDetails.itemCount;
-
+          this.playlist.thumbnail = response.snippet.thumbnails.default.url;
           this.getPlaylistItems(0, '');
-        }
-      );
+        },
+    );
   }
 
   getPlaylistItems(i: number, pageToken: string) {
@@ -66,7 +101,7 @@ export class PlaylistComponent implements OnInit {
       return;
     }
 
-    //console.log(this.url);
+    //console.log(url);
 
     this._fetcher.get(url)
       .subscribe(
@@ -81,6 +116,7 @@ export class PlaylistComponent implements OnInit {
 
           //console.log("NextPage " + pageToken);
           //console.log(i);
+          this.playlist.itemCount = response.pageInfo.totalResults;
 
           response = response.items;
 
@@ -100,13 +136,31 @@ export class PlaylistComponent implements OnInit {
               this.loading = false;
             }
 
-            this._fetcher.get('api/video?id=' + video.id)
+            this._fetcher.get('api/video?url=https://www.youtube.com/watch?v=' + video.id)
               .subscribe(
                 res => {
                   video.bestext = res.ext.toUpperCase();
                   video.besturl = res.url + '&title=' + video.title;
                   video.bestheight = res.height + ' P';
                   video.on = true;
+                  if (!this.urlError) {
+                    this.links += video.besturl;
+                  }
+
+                  this.count++;
+
+                  if (this.playlist == null)
+                    return;
+
+                  this.progress = Math.ceil((this.count / this.playlist.itemCount) * 100);
+
+                  if (!this.urlError && pageToken === '' && n === response.length - 1) {
+                    /*
+                    this.links = '';
+                    for (let item of this.playlist.videos) {
+                      this.links += item.besturl + '\n';
+                    }*/
+                  }
                 }
               );
 
@@ -126,19 +180,3 @@ export class PlaylistComponent implements OnInit {
   }
 
 }
-
-/*
-this._fetcher.get('http://localhost:8080/api/video?id=' + video.id)
-              .subscribe(
-                res => {
-                  video.bestext = res.ext;
-                  video.besturl = res.url + '&title=' + video.title;
-                  video.bestheight = res.height;
-                  
-
-                  if (pageToken === '' && n === response.length - 1) {
-                    this.loading = false;
-                  }
-                }
-              );
-*/

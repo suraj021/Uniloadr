@@ -15,8 +15,13 @@
       </button>
     </div>
   </div>
-  <loading *ngIf="loading"></loading>
-  <div *ngIf="video?.on" class="panel highlight">
+  <div class="card alert animated shake" *ngIf="urlError">
+    <div class="card-body">
+      The URL of the video seems to be invalid. Please enter a valid URL or try again later.
+    </div>
+  </div>
+  <loading *ngIf="!urlError && loading"></loading>
+  <div *ngIf="video?.on" class="panel highlight animated fadeIn">
     <div class="thumbnail highlight">
       <div class="card z-depth-1">
         <div class="card-body">
@@ -41,12 +46,12 @@
           Mp4 format
         </div>
         <div class="card-body">
-          <a *ngIf="mp43072" download href='{{video?.quality.mp4["3072"][0]}}' class="btn btn-success">3072 P</a>
-          <a *ngIf="mp41080" download href='{{video?.quality.mp4["1080"][0]}}' class="btn btn-success">1080 P</a>
-          <a *ngIf="mp4720" download href='{{video?.quality.mp4["720"][0]}}' class="btn btn-success">720 P</a>
-          <a *ngIf="mp4480" download href='{{video?.quality.mp4["480"][0]}}' class="btn btn-success">480 P</a>
-          <a *ngIf="mp4360" download href='{{video?.quality.mp4["360"][0]}}' class="btn btn-success">360 P</a>
-          <a *ngIf="mp4240" download href='{{video?.quality.mp4["240"][0]}}' class="btn btn-success">240 P</a>
+          <a target="_blank" *ngIf="mp43072" download href='{{video?.quality.mp4["3072"][0]}}' class="btn btn-success">3072 P</a>
+          <a target="_blank" *ngIf="mp41080" download href='{{video?.quality.mp4["1080"][0]}}' class="btn btn-success">1080 P</a>
+          <a target="_blank" *ngIf="mp4720" download href='{{video?.quality.mp4["720"][0]}}' class="btn btn-success">720 P</a>
+          <a target="_blank" *ngIf="mp4480" download href='{{video?.quality.mp4["480"][0]}}' class="btn btn-success">480 P</a>
+          <a target="_blank" *ngIf="mp4360" download href='{{video?.quality.mp4["360"][0]}}' class="btn btn-success">360 P</a>
+          <a target="_blank" *ngIf="mp4240" download href='{{video?.quality.mp4["240"][0]}}' class="btn btn-success">240 P</a>
         </div>
       </div>
       <div class="card audio">
@@ -55,9 +60,9 @@
         </div>
         <a #load target="_blank"></a>
         <div class="card-body">
-          <a (click)='convert( video?.id, "320", load )' class="btn btn-info">320 kbps</a>
-          <a (click)='convert( video?.id, "256", load )' class="btn btn-info">256 kbps</a>
-          <a (click)='convert( video?.id, "128", load )' class="btn btn-info">128 kbps</a>
+          <a (click)='convert( video?.id, "320", load )' class="btn btn-info disabled">320 kbps</a>
+          <a (click)='convert( video?.id, "256", load )' class="btn btn-info disabled">256 kbps</a>
+          <a (click)='convert( video?.id, "128", load )' class="btn btn-info disabled">128 kbps</a>
         </div>
       </div>
       <div class="card subtitle" *ngIf="hassubtitles">
@@ -73,11 +78,11 @@
           Webm format
         </div>
         <div class="card-body">
-          <a *ngIf="webm1080" href='{{video?.quality.webm["1080"][0]}}' class="btn btn-success">1080 P</a>
-          <a *ngIf="webm720" href='{{video?.quality.webm["720"][0]}}' class="btn btn-success">720 P</a>
-          <a *ngIf="webm480" href='{{video?.quality.webm["480"][0]}}' class="btn btn-success">480 P</a>
-          <a *ngIf="webm360" href='{{video?.quality.webm["360"][0]}}' class="btn btn-success">360 P</a>
-          <a *ngIf="webm240" href='{{video?.quality.webm["240"][0]}}' class="btn btn-success">240 P</a>
+          <a target="_blank" *ngIf="webm1080" href='{{video?.quality.webm["1080"][0]}}' class="btn btn-success">1080 P</a>
+          <a target="_blank" *ngIf="webm720" href='{{video?.quality.webm["720"][0]}}' class="btn btn-success">720 P</a>
+          <a target="_blank" *ngIf="webm480" href='{{video?.quality.webm["480"][0]}}' class="btn btn-success">480 P</a>
+          <a target="_blank" *ngIf="webm360" href='{{video?.quality.webm["360"][0]}}' class="btn btn-success">360 P</a>
+          <a target="_blank" *ngIf="webm240" href='{{video?.quality.webm["240"][0]}}' class="btn btn-success">240 P</a>
         </div>
       </div>
       <div class="card mp4-no-audio" *ngIf="hasnoaudiomp4">
@@ -88,14 +93,14 @@
           </span>
         </div>
         <div class="card-body">
-          <a *ngIf="noaudiomp42160" href='{{video?.noaudio.mp4["2160"][0]}}' class="btn btn-success">2160 P</a>
-          <a *ngIf="noaudiomp41440" href='{{video?.noaudio.mp4["1440"][0]}}' class="btn btn-success">1440 P</a>
-          <a *ngIf="noaudiomp41080" href='{{video?.noaudio.mp4["1080"][0]}}' class="btn btn-success">1080 P</a>
-          <a *ngIf="noaudiomp4720" href='{{video?.noaudio.mp4["720"][0]}}' class="btn btn-success">720 P</a>
-          <a *ngIf="noaudiomp4480" href='{{video?.noaudio.mp4["480"][0]}}' class="btn btn-success">480 P</a>
-          <a *ngIf="noaudiomp4360" href='{{video?.noaudio.mp4["360"][0]}}' class="btn btn-success">360 P</a>
-          <a *ngIf="noaudiomp4240" href='{{video?.noaudio.mp4["240"][0]}}' class="btn btn-success">240 P</a>
-          <a *ngIf="noaudiomp4140" href='{{video?.noaudio.mp4["140"][0]}}' class="btn btn-success">140 P</a>
+          <a target="_blank" *ngIf="noaudiomp42160" href='{{video?.noaudio.mp4["2160"][0]}}' class="btn btn-success">2160 P</a>
+          <a target="_blank" *ngIf="noaudiomp41440" href='{{video?.noaudio.mp4["1440"][0]}}' class="btn btn-success">1440 P</a>
+          <a target="_blank" *ngIf="noaudiomp41080" href='{{video?.noaudio.mp4["1080"][0]}}' class="btn btn-success">1080 P</a>
+          <a target="_blank" *ngIf="noaudiomp4720" href='{{video?.noaudio.mp4["720"][0]}}' class="btn btn-success">720 P</a>
+          <a target="_blank" *ngIf="noaudiomp4480" href='{{video?.noaudio.mp4["480"][0]}}' class="btn btn-success">480 P</a>
+          <a target="_blank" *ngIf="noaudiomp4360" href='{{video?.noaudio.mp4["360"][0]}}' class="btn btn-success">360 P</a>
+          <a target="_blank" *ngIf="noaudiomp4240" href='{{video?.noaudio.mp4["240"][0]}}' class="btn btn-success">240 P</a>
+          <a target="_blank" *ngIf="noaudiomp4140" href='{{video?.noaudio.mp4["140"][0]}}' class="btn btn-success">140 P</a>
         </div>
       </div>
       <div class="card webm-no-audio" *ngIf="hasnoaudiowebm">
@@ -106,12 +111,12 @@
           </span>
         </div>
         <div class="card-body">
-          <a *ngIf="noaudiowebm3072" href='{{video?.noaudio.webm["3072"][0]}}' class="btn btn-success">3072 P</a>
-          <a *ngIf="noaudiowebm1080" href='{{video?.noaudio.webm["1080"][0]}}' class="btn btn-success">1080 P</a>
-          <a *ngIf="noaudiowebm720" href='{{video?.noaudio.webm["720"][0]}}' class="btn btn-success">720 P</a>
-          <a *ngIf="noaudiowebm480" href='{{video?.noaudio.webm["480"][0]}}' class="btn btn-success">480 P</a>
-          <a *ngIf="noaudiowebm360" href='{{video?.noaudio.webm["360"][0]}}' class="btn btn-success">360 P</a>
-          <a *ngIf="noaudiowebm240" href='{{video?.noaudio.webm["240"][0]}}' class="btn btn-success">240 P</a>
+          <a target="_blank" *ngIf="noaudiowebm3072" href='{{video?.noaudio.webm["3072"][0]}}' class="btn btn-success">3072 P</a>
+          <a target="_blank" *ngIf="noaudiowebm1080" href='{{video?.noaudio.webm["1080"][0]}}' class="btn btn-success">1080 P</a>
+          <a target="_blank" *ngIf="noaudiowebm720" href='{{video?.noaudio.webm["720"][0]}}' class="btn btn-success">720 P</a>
+          <a target="_blank" *ngIf="noaudiowebm480" href='{{video?.noaudio.webm["480"][0]}}' class="btn btn-success">480 P</a>
+          <a target="_blank" *ngIf="noaudiowebm360" href='{{video?.noaudio.webm["360"][0]}}' class="btn btn-success">360 P</a>
+          <a target="_blank" *ngIf="noaudiowebm240" href='{{video?.noaudio.webm["240"][0]}}' class="btn btn-success">240 P</a>
         </div>
       </div>
       <div class="card flv" *ngIf="hasflv">
@@ -119,11 +124,11 @@
           Flv format
         </div>
         <div class="card-body">
-          <a *ngIf="flv1080" href='{{video?.quality.flv["1080"][0]}}' class="btn btn-success">1080 P</a>
-          <a *ngIf="flv720" href='{{video?.quality.flv["720"][0]}}' class="btn btn-success">720 P</a>
-          <a *ngIf="flv480" href='{{video?.quality.flv["480"][0]}}' class="btn btn-success">480 P</a>
-          <a *ngIf="flv360" href='{{video?.quality.flv["360"][0]}}' class="btn btn-success">360 P</a>
-          <a *ngIf="flv240" href='{{video?.quality.flv["240"][0]}}' class="btn btn-success">240 P</a>
+          <a target="_blank" *ngIf="flv1080" href='{{video?.quality.flv["1080"][0]}}' class="btn btn-success">1080 P</a>
+          <a target="_blank" *ngIf="flv720" href='{{video?.quality.flv["720"][0]}}' class="btn btn-success">720 P</a>
+          <a target="_blank" *ngIf="flv480" href='{{video?.quality.flv["480"][0]}}' class="btn btn-success">480 P</a>
+          <a target="_blank" *ngIf="flv360" href='{{video?.quality.flv["360"][0]}}' class="btn btn-success">360 P</a>
+          <a target="_blank" *ngIf="flv240" href='{{video?.quality.flv["240"][0]}}' class="btn btn-success">240 P</a>
         </div>
       </div>
       <div class="card 3gp" *ngIf="hasgpp">
@@ -131,9 +136,9 @@
           3gp format
         </div>
         <div class="card-body">
-          <a *ngIf="gpp240" href='{{video?.quality["3gp"]["240"][0]}}' class="btn btn-success">240 P</a>
-          <a *ngIf="gpp180" href='{{video?.quality["3gp"]["180"][0]}}' class="btn btn-success">180 P</a>
-          <a *ngIf="gpp144" href='{{video?.quality["3gp"]["144"][0]}}' class="btn btn-success">144 P</a>
+          <a target="_blank" *ngIf="gpp240" href='{{video?.quality["3gp"]["240"][0]}}' class="btn btn-success">240 P</a>
+          <a target="_blank" *ngIf="gpp180" href='{{video?.quality["3gp"]["180"][0]}}' class="btn btn-success">180 P</a>
+          <a target="_blank" *ngIf="gpp144" href='{{video?.quality["3gp"]["144"][0]}}' class="btn btn-success">144 P</a>
         </div>
       </div>
     </div>

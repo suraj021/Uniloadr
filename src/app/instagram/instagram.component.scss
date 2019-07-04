@@ -1,0 +1,149 @@
+.box {
+    //border: 1px solid blue;
+    display: flex;
+    flex-direction: column;
+    min-height: 50vh;
+}
+
+.highlight {
+    //border: 1px solid yellow;
+}
+
+.md-form input {
+    color: #e53935;
+}
+
+.md-form i {
+    color: #e53935;
+}
+
+.download-button {
+    width: 100%;
+    background-color: #e53935 !important;
+    margin-top: 6%; //padding-right: 1%;
+    text-align: center;
+    margin-left: -5%;
+}
+
+.download-button:hover,
+.download-button:target,
+.download-button:active {
+    color: #fff;
+    background-color: #ef5350 !important;
+    border-color: #ef5350 !important;
+    /*set the color you want here*/
+    transition: cubic-bezier(0.075, 0.82, 0.165, 1) !important;
+    border: 0px solid transparent !important;
+}
+
+.alert {
+    background-color: #ffbb33;
+    margin-top: 2%;
+    color: white;
+}
+
+.panel {
+    display: flex;
+    flex-direction: row;
+    margin-top: 2%;
+}
+
+.thumbnail {
+    flex-basis: 35%;
+    padding-right: 0px;
+}
+
+.thumbnail .card .card-body {
+    padding: 0 0 0 0;
+}
+
+.download-panel {
+    flex: 1;
+    padding-left: 2%;
+    padding-right: 1%;
+}
+
+.download-panel .card {
+    margin-bottom: 4%; //box-shadow: 0.5;
+    //border: 0.5px solid grey;
+}
+
+.download-panel .card .card-body {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    color: black;
+    justify-content: flex-start;
+}
+
+.download-panel .card .card-body a {
+    min-width: 125px;
+}
+
+@media only screen and (max-width: 1150px) {
+    .download-button i {
+        display: none;
+    }
+}
+
+@media only screen and (max-width: 789px) {
+    .download-button {
+        margin-top: 11%;
+    }
+    .download-button .heading span {
+        display: none;
+    }
+    .download-button .heading i {
+        display: inline;
+        text-align: center;
+    }
+}
+
+@media only screen and (max-width: 995px) {
+    .card .card-header span img {
+        width: 4%;
+        height: 4%;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .card .card-header span img {
+        width: 6%;
+        height: 6%;
+    }
+}
+
+@media only screen and (max-width: 580px) {
+    .panel {
+        display: flex;
+        flex-direction: column
+    }
+    .download-panel {
+        width: 100%;
+        margin-top: 3%;
+        padding: 0 0 0 0;
+    }
+    .download-panel .card .card-body a {
+        min-width: 110px;
+    }
+    .card .card-header span img {
+        width: 4%;
+        height: 4%;
+    }
+}
+
+@media only screen and (max-width: 465px) {
+    .download {
+        padding-left: 0;
+    }
+    .download .download-button {
+        margin-top: 17%;
+        padding-left: 28px;
+    }
+    .download-button .heading {
+        margin-left: 5%;
+    }
+    .input-box .md-form {
+        padding-right: 0;
+    }
+}

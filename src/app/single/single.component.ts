@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Video } from '../video';
 import { FetcherService } from '../services/fetcher.service';
 import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
+import { Router } from '@angular/router';
+import { ValidatorService } from '../services/validator.service';
 
 @Component({
   selector: 'app-single',
@@ -10,7 +12,10 @@ import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
 })
 export class SingleComponent implements OnInit {
 
+  id: string;
   video: Video;
+  errroMessage: string;
+
   mp41080: boolean; mp4720: boolean; mp4480: boolean; mp4360: boolean; mp4240: boolean;
   gpp144: boolean; gpp180: boolean; gpp240: boolean;
   webm240: boolean; webm360: boolean; webm480: boolean; webm720: boolean; webm1080: boolean;
@@ -23,28 +28,53 @@ export class SingleComponent implements OnInit {
   hasnoaudiomp4: boolean; hasnoaudiowebm: boolean;
   loading: boolean;
 
-  constructor(private _fetcher: FetcherService) {
-    this.loading= false;
+  urlError: boolean;
+
+  constructor(private _fetcher: FetcherService, private _validator: ValidatorService) {
+    this.loading = false;
   }
 
   ngOnInit() {
   }
 
   download(input) {
+    this.urlError= false;
+    let url = input.value;
+    let match = this._validator.validateUrl(url);
 
-    this.loading= true;
+    //console.log(match);
 
-    this.hasflv = this.hasgpp = this.hasmp4 = this.hasnoaudiomp4 = this.hasnoaudiowebm = this.hassubtitles = this.haswebm = false;
+    if (this.id === match && this.video.id === this.id)
+      return;
+
+    if (match) {
+      this.id = match;
+    } else {
+      this.id = '';
+      this.urlError= true;
+      this.video= null;
+      return;
+    }
 
     this.video = new Video();
-    let id = input.value;
+    this.loading = true;
+    this.hasflv = this.hasgpp = this.hasmp4 = this.hasnoaudiomp4 = this.hasnoaudiowebm = this.hassubtitles = this.haswebm = false;
 
     //console.log( window.location.href );
-    let testurl= 'http://localhost:8080/';
+    let testurl = 'http://localhost:8080/';
 
-    this._fetcher.get('api/video?id=' + id)
+    this._fetcher.get( 'api/video?url=https://www.youtube.com/watch?v=' + this.id)
       .subscribe(
         res => {
+
+          if( res.code=== 1 ){
+            this.id= '';
+            this.urlError= true;
+            this.video= null;
+            this.loading= false;
+            return;
+          }
+
           //console.log( res );
           this.video.title = res.title;
           this.video.id = res.id;
@@ -302,13 +332,14 @@ export class SingleComponent implements OnInit {
 
           this.video.on = true;
 
-          this.loading= false;
+          this.loading = false;
           //console.log(this.video);
         },
-        err=> {
-          this.loading= false;
+        err => {
+          this.loading = false;
         }
       );
+
   }
 
   set() {

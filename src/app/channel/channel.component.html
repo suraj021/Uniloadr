@@ -1,3 +1,92 @@
-<p>
-  channel works!
-</p>
+<div class="box jua">
+  <div class="row">
+    <div class="col-9 input-box highlight">
+      <div class="md-form">
+        <i class="fa fa-globe prefix"></i>
+        <input #input type="text" id="inputIconEx1" class="form-control" placeholder="Enter YouTube channel Link" (keyup.enter)="download(input)">
+      </div>
+    </div>
+
+    <div class="col-3 download highlight">
+      <button type="button" class="btn red darken-1 waves-light download-button" (click)="download(input)" mdbWavesEffect>
+        <div class="heading">
+          <i class="fa fa-download" aria-hidden="true"></i>
+          <span class="btn-title">Download</span>
+        </div>
+      </button>
+    </div>
+  </div>
+  <div class="helper">
+    <div class="links-area card">
+      <textarea readonly name="links" id="link" cols="100" rows="7">{{links}}</textarea>
+    </div>
+    <br/>
+    <div class="instructions">
+      Hack: Copy these links and batch download from any fast downloaders like IDM.
+    </div>
+  </div>
+  <div class="progress" *ngIf="channel?.title">
+    <div class="progress-bar progress-bar-success active progress-bar-striped" role="progressbar" aria-valuenow="{{progress}}" aria-valuemin="0" aria-valuemax="100"
+      [style.width]="progress+'%'">
+      {{progress}}% Complete ({{count}}/{{channel?.uploadCount}} available to download)
+    </div>
+  </div>
+  <div class="card alert animated shake" *ngIf="urlError">
+    <div class="card-body">
+      The URL of the Channel seems to be invalid. Please enter a valid Channel URL or try again later.
+    </div>
+  </div>
+  <div *ngIf="channel?.title" class="identity">
+    <div class="card identity-card">
+      <div class="channel-thumbnail">
+        <a target="_blank" href="https://materialtube.firebaseapp.com/channel/{{channel?.id}}">
+          <img src="{{channel?.thumbnail}}" alt="" width="120%" height="100%">
+        </a>
+      </div>
+      <div class="content">
+        <div class="card-header">
+          <a target="_blank" href="https://materialtube.firebaseapp.com/channel/{{channel?.id}}">{{channel?.title}}</a>
+        </div>
+        <div class="card-body">
+          <span>Uploaded videos: </span>{{channel?.uploads.length}}
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="panel ">
+    <div class="label" *ngIf="channel?.uploads.length > 0">
+      <div class="index-label">
+        <span class="small-index">Id</span>
+        <span class="large-index">Index</span>
+      </div>
+      <div class="thumbnail-label">Thumbnail</div>
+      <div class="title-label">Title</div>
+      <div class="quality-label">Quality</div>
+    </div>
+    <div *ngFor="let video of channel?.uploads; let i=index">
+      <div class="download-panel">
+        <div class="index">
+          #{{i+1}}
+        </div>
+        <div class="thumnail highlight">
+          <a target="_blank" href="https://materialtube.firebaseapp.com/watch?v={{video?.id}}">
+            <img src="{{video?.thumbnail}}" alt="" width="100%" height="auto">
+          </a>
+        </div>
+        <div class="title highlight">
+          <a target="_blank" href="https://materialtube.firebaseapp.com/watch?v={{video?.id}}">
+            <span>{{video?.title}}</span>
+          </a>
+        </div>
+        <div class="quality highlight">
+          <a href="{{video?.besturl}}" class="btn btn-success download-btn" [class.disabled]="!video?.on">
+            <div class="heading">
+              <span>{{video?.bestext}} {{video?.bestheight}}</span>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <loading2 *ngIf="loading && !urlError"></loading2>
+</div>

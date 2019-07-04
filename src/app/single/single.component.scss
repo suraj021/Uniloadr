@@ -2,7 +2,7 @@
     //border: 1px solid blue;
     display: flex;
     flex-direction: column;
-    min-height: 100vh;
+    min-height: 55vh;
 }
 
 .highlight{
@@ -32,6 +32,12 @@
     border-color: #ef5350 !important; /*set the color you want here*/
     transition: cubic-bezier(0.075, 0.82, 0.165, 1) !important;
     border: 0px solid transparent !important;
+}
+
+.alert{
+    background-color: #ffbb33;
+    margin-top: 2%;
+    color: white;
 }
 
 .panel{
@@ -136,7 +142,7 @@
     }
     .download .download-button{
         margin-top: 17%;
-        padding-left: 25px;
+        padding-left: 28px;
     }
 
     .download-button .heading{
