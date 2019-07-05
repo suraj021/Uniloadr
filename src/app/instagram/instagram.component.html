@@ -23,7 +23,10 @@
   <loading *ngIf="!urlError && loading"></loading>
   <div class="panel highlight">
     <div class="download-panel highlight" *ngIf="ready">
-      <div class="card mp4">
+      <div class="thumbnail">
+        <img src="{{thumbnailUrl}}" alt="" style="width: 100%;">
+      </div>
+      <div class="content-card card mp4">
         <div class="card-header deep-grey">
           Video Quality
         </div>
